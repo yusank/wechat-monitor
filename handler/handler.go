@@ -36,7 +36,7 @@ import (
 )
 
 type WeChat struct {
-	session 	*wxweb.Session
+	session *wxweb.Session
 }
 
 var (
@@ -49,7 +49,7 @@ func init() {
 	}
 }
 
-func (wx *WeChat)HandleDebug() {
+func (wx *WeChat) HandleDebug() {
 	var err error
 
 	wx.session, err = wxweb.CreateSession(nil, nil, wxweb.TERMINAL_MODE)

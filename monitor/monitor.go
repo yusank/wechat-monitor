@@ -11,7 +11,7 @@ func Register(session *wxweb.Session) {
 }
 
 var (
-	secertID  = "yusan112233"
+	secertID = "yusan112233"
 	Debug    chan int
 )
 
@@ -22,7 +22,6 @@ func init() {
 func monitor(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 	defaultTarget := wxweb.RealTargetUserName(session, msg)
 
-
 	switch msg.Content {
 	case secertID:
 		debugger(session, defaultTarget)
@@ -32,7 +31,7 @@ func monitor(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 	}
 }
 
-func debugger(session *wxweb.Session,target string){
+func debugger(session *wxweb.Session, target string) {
 
 	myself := session.Bot.UserName
 
