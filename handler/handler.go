@@ -39,7 +39,10 @@ type WeChat struct {
 	session 	*wxweb.Session
 }
 
-var WXService *WeChat
+var (
+	WXService *WeChat
+	//yusanid = "@e3038b226e980a13aacbc9fc1ab24ef6"
+)
 
 func init() {
 	WXService = &WeChat{
@@ -56,11 +59,19 @@ func (wx *WeChat)HandleDebug() {
 		return
 	}
 
+
+
+	monitor.Register(wx.session)
+
+	wx.session.HandlerRegister.EnableByName("monitor")
+
 	if err := wx.session.LoginAndServe(false); err != nil {
 		logs.Error("session exit, %s", err)
 	}
+	wx.session.SendText("lal", wx.session.Bot.UserName, "filehelper")
 }
 
-func (wx WeChat)SendText(s string) {
-	monitor.Monitor(wx.session, s)
+func (wx *WeChat)SendText(s string) {
+	logs.Info(wx.session)
+	wx.session.SendText(s, wx.session.Bot.UserName, "filehelper")
 }
