@@ -3,7 +3,7 @@
 [wechat-go](https://github.com/songtianyi/wechat-go) 库的简单应用
 
 ## 特定的消息
-特定的消息是指发送到 monitor.Debug 这个 chanel 的消息
+特定的消息是指发送到 monitor.Debug 这个 channel 的消息
 
 
 ## 特定的用户
