@@ -12,9 +12,10 @@ func main() {
 }
 
 func Tester() {
-	for i := 0; i < 11; i++ {
-		time.Sleep(5 * time.Second)
+	for {
+		dur := 2
+		time.Sleep(time.Duration(dur) * time.Minute)
 
-		monitor.Debug <- i
+		monitor.Debug <- dur
 	}
 }
