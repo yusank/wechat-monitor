@@ -35,7 +35,6 @@ import (
 	"github.com/songtianyi/rrframework/logs"
 
 	"time"
-	"fmt"
 )
 
 type WeChat struct {
