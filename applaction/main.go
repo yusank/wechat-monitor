@@ -17,6 +17,7 @@ func main() {
 }
 
 func Tester() {
+	time.Sleep(60 * time.Second)
 	for {
 		dur := 2
 		time.Sleep(time.Duration(dur) * time.Minute)

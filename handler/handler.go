@@ -19,7 +19,7 @@ type WeChat struct {
 
 var (
 	WXService *WeChat
-	wxGroup = "ceshiweixin"
+	WXGroup = "ceshiweixin"
 )
 
 func init() {
@@ -36,6 +36,9 @@ func (wx *WeChat) HandleDebug() {
 		logs.Error(err)
 		return
 	}
+
+	monitor.Register(wx.session)
+	wx.session.HandlerRegister.EnableByName("testAlive")
 
 	errChan := make(chan error)
 	go func(errChan chan error) {
@@ -61,9 +64,9 @@ func (wx *WeChat) HandleDebug() {
 	}
 	// now it is ok to send message
 	// sleep 20 second for waiting login complete
-	time.Sleep(20 * time.Second)
+	time.Sleep(60 * time.Second)
 
-	target := wx.session.Cm.GetContactByPYQuanPin(wxGroup)
+	target := wx.session.Cm.GetContactByPYQuanPin(WXGroup)
 	monitor.Debugger(wx.session, target.UserName)
 
 	<- errChan

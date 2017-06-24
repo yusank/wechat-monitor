@@ -13,12 +13,26 @@ import (
 
 var (
 	Debug    chan int
+	TestText = "areUalive"
 )
 
 func init() {
 	Debug = make(chan int, 1000)
 }
 
+func Register(session *wxweb.Session) {
+	session.HandlerRegister.Add(wxweb.MSG_TEXT, wxweb.Handler(alive), "testAlive")
+}
+
+func alive(sesion *wxweb.Session, msg *wxweb.ReceivedMessage) {
+	switch msg.Content {
+	case TestText:
+		sesion.SendText("I`m alive", sesion.Bot.UserName, wxweb.RealTargetUserName(sesion, msg))
+
+	default:
+		fmt.Print("Got a new message/n")
+	}
+}
 
 func Debugger(session *wxweb.Session, target string) {
 
