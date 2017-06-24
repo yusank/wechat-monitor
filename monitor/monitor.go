@@ -30,7 +30,7 @@ func alive(sesion *wxweb.Session, msg *wxweb.ReceivedMessage) {
 		sesion.SendText("I`m alive", sesion.Bot.UserName, wxweb.RealTargetUserName(sesion, msg))
 
 	default:
-		fmt.Print("Got a new message/n")
+		fmt.Printf("Got a new message from: %s \n", sesion.Cm.GetContactByUserName(msg.FromUserName))
 	}
 }
 
