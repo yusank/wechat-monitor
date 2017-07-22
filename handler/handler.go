@@ -7,8 +7,9 @@ package handler
 
 import (
 	"wechat-monitor/monitor"
-	"github.com/songtianyi/wechat-go/wxweb"
+
 	"github.com/songtianyi/rrframework/logs"
+	"github.com/songtianyi/wechat-go/wxweb"
 
 	"time"
 )
@@ -19,7 +20,7 @@ type WeChat struct {
 
 var (
 	WXService *WeChat
-	WXGroup = "ceshiweixin"
+	WXGroup   = "ceshiweixin"
 )
 
 func init() {
@@ -43,7 +44,6 @@ func (wx *WeChat) HandleDebug() {
 	errChan := make(chan error)
 	go func(errChan chan error) {
 		if err := wx.session.LoginAndServe(false); err != nil {
-			logs.Error("session exit, %s", err)
 			errChan <- err
 		}
 	}(errChan)
@@ -52,7 +52,16 @@ func (wx *WeChat) HandleDebug() {
 	for {
 		select {
 		case err := <-errChan:
-			panic(err)
+			logs.Error("session exit, %s", err)
+			for i := 0; i < 3; i++ {
+				if err = wx.session.LoginAndServe(true); err != nil {
+					logs.Error("re-login error:", err)
+				}
+				time.Sleep(3 * time.Second)
+			}
+			if wx.session, err = wxweb.CreateSession(nil, wx.session.HandlerRegister, wxweb.TERMINAL_MODE); err != nil {
+				logs.Error("create new session is failed:", err)
+			}
 		case <-tick:
 			// check login status
 			if wx.session.Cookies != nil {
@@ -69,5 +78,5 @@ func (wx *WeChat) HandleDebug() {
 	target := wx.session.Cm.GetContactByPYQuanPin(WXGroup)
 	monitor.Debugger(wx.session, target.UserName)
 
-	<- errChan
+	<-errChan
 }
