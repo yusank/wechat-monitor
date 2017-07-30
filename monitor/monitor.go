@@ -40,7 +40,6 @@ func location(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 	switch msg.SubType {
 	case wxweb.MSG_LOCATION:
 		l := strings.Split(msg.Url, "?")
-		c := strings.Split(l[1], "")
 		fmt.Printf("Got a location message: %v", l[1])
 		session.SendText("I`m location", session.Bot.UserName, wxweb.RealTargetUserName(session, msg))
 	default:
