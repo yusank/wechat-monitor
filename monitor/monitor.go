@@ -43,8 +43,7 @@ func location(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 		fmt.Printf("Got a location message: %v", l[1])
 		session.SendText("I`m location", session.Bot.UserName, wxweb.RealTargetUserName(session, msg))
 	default:
-		fmt.Printf("Got a location message: %v AND %v \n", msg.Content, msg.OriginContent)
-		session.SendText("I`m location", session.Bot.UserName, wxweb.RealTargetUserName(session, msg))
+		fmt.Printf("not a location message.")
 	}
 }
 
