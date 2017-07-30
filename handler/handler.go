@@ -9,7 +9,7 @@ import (
 	"wechat-monitor/monitor"
 
 	"github.com/songtianyi/rrframework/logs"
-	"github.com/songtianyi/wechat-go/wxweb"
+	"github.com/yusank/wechat-go/wxweb"
 
 	"time"
 )
@@ -40,6 +40,7 @@ func (wx *WeChat) HandleDebug() {
 
 	monitor.Register(wx.session)
 	wx.session.HandlerRegister.EnableByName("testAlive")
+	wx.session.HandlerRegister.EnableByName("loc")
 
 	errChan := make(chan error)
 	go func(errChan chan error) {
@@ -52,7 +53,7 @@ func (wx *WeChat) HandleDebug() {
 	for {
 		select {
 		case err := <-errChan:
-			logs.Error("session exit, %s", err)
+			logs.Error("session exit:", err)
 			for i := 0; i < 3; i++ {
 				if err = wx.session.LoginAndServe(true); err != nil {
 					logs.Error("re-login error:", err)
