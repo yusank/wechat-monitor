@@ -6,21 +6,24 @@
 package handler
 
 import (
-	"wechat-monitor/monitor"
+	"time"
 
 	"github.com/songtianyi/rrframework/logs"
 	"github.com/yusank/wechat-go/wxweb"
 
-	"time"
+	"wechat-monitor/monitor"
 )
 
+// WeChat wrapper session
 type WeChat struct {
 	session *wxweb.Session
 }
 
 var (
+	// WXService is provide interface for WeChat`s function
 	WXService *WeChat
-	WXGroup   = "ceshiweixin"
+	// WXGroup is the wechat group name where message to be send
+	WXGroup = "ceshiweixin"
 )
 
 func init() {
@@ -29,6 +32,7 @@ func init() {
 	}
 }
 
+// HandleDebug handle wechat login and refresh
 func (wx *WeChat) HandleDebug() {
 	var err error
 

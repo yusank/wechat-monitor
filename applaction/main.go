@@ -6,9 +6,10 @@
 package main
 
 import (
+	"time"
+
 	"wechat-monitor/handler"
 	"wechat-monitor/monitor"
-	"time"
 )
 
 func main() {
@@ -16,6 +17,7 @@ func main() {
 	handler.WXService.HandleDebug()
 }
 
+// Tester sleep 1 minute for waiting login complete and send 2 to Debug channel every 2 second
 func Tester() {
 	time.Sleep(60 * time.Second)
 	for {

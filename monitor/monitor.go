@@ -6,14 +6,16 @@
 package monitor
 
 import (
-	"github.com/yusank/wechat-go/wxweb"
 	"fmt"
 	"strings"
+
+	"github.com/yusank/wechat-go/wxweb"
 )
 
-
 var (
-	Debug    chan int
+	// Debug is channel for receiving message
+	Debug chan int
+	// TestText is for testing alive() if alive
 	TestText = "areUalive"
 )
 
@@ -21,6 +23,7 @@ func init() {
 	Debug = make(chan int, 1000)
 }
 
+// Register register plugs
 func Register(session *wxweb.Session) {
 	session.HandlerRegister.Add(wxweb.MSG_TEXT, wxweb.Handler(alive), "testAlive")
 	session.HandlerRegister.Add(wxweb.MSG_TEXT, wxweb.Handler(location), "loc")
@@ -47,10 +50,9 @@ func location(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 	}
 }
 
+// Debugger listen Debug channel and when got any message from channel it will send to myself immediately
 func Debugger(session *wxweb.Session, target string) {
-
 	myself := session.Bot.UserName
-
 	for {
 		select {
 		case d := <-Debug:
