@@ -1,6 +1,6 @@
 # wechat-monitor
 
-[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)]()
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)]()
 [![go](https://img.shields.io/badge/GO-1.8.3-blue.svg)]()
 
 
